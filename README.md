@@ -70,10 +70,4 @@ cargo run
 cd frontend
 npm run dev
 
-Author
-Mattheau Trahan (Founder-OSS)
-Full Sail University – Web Development
-
-License
-MIT
 
