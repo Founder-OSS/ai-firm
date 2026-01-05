@@ -6,6 +6,26 @@
 
 ai-firm is a full-stack application combining a Rust backend with a Next.js frontend, designed to demonstrate professional AI agent deployment on resource-constrained systems like Chromebooks.
 
+## 🚀 Live Demo
+
+> **Note**: Demo deployment coming soon. Currently in development.
+
+**Planned Demo URL**: `https://ai-firm-founder-oss.vercel.app`
+
+### Screenshots
+
+#### Main Dashboard
+![Main Dashboard](docs/screenshots/dashboard.png)
+*AI agent interface showing real-time processing on 4GB Chromebook*
+
+#### System Architecture
+![Architecture Diagram](docs/screenshots/architecture.png)
+*Rust backend + Next.js frontend architecture*
+
+#### Performance Metrics
+![Performance](docs/screenshots/performance.png)
+*Resource usage on low-spec hardware*
+
 ## Tech Stack
 
 - **Backend**: Rust
@@ -56,3 +76,4 @@ Full Sail University – Web Development
 
 License
 MIT
+
