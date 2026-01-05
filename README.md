@@ -1,12 +1,58 @@
 # ai-firm
-The Way to Rust – an AI-first, Rust-powered multi-agent platform for lawyers, devs, and other pros.
 
-# The Way to Rust
+**The Way to Rust** – An AI-powered development platform running on minimal hardware.
 
-This repo is my personal journey into building a serious AI stack on tiny hardware and zero budget.
+## Overview
 
-- Rust + Axum backend for speed and safety.
-- Qdrant and RAG for “AI firm” style specialist agents.
-- Next.js frontend that will grow into a multi-professional workspace.
+ai-firm is a full-stack application combining a Rust backend with a Next.js frontend, designed to demonstrate professional AI agent deployment on resource-constrained systems like Chromebooks.
 
-Built by a broke college student on a 4 GB Chromebook, one command at a time.
+## Tech Stack
+
+- **Backend**: Rust
+- **Frontend**: Next.js (React)
+- **Target Environment**: 4GB RAM Chromebook (Crostini)
+
+## Project Structure
+
+ai-firm/
+├── backend/ # Rust backend services
+├── frontend/ # Next.js frontend application
+└── README.md
+
+
+## Setup
+
+### Prerequisites
+- Rust toolchain
+- Node.js 18+
+- Git
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Founder-OSS/ai-firm.git
+cd ai-firm
+
+# Backend setup
+cd backend
+cargo build
+
+# Frontend setup
+cd ../frontend
+npm install
+
+# Start backend
+cd backend
+cargo run
+
+# Start frontend (new terminal)
+cd frontend
+npm run dev
+
+Author
+Mattheau Trahan (Founder-OSS)
+Full Sail University – Web Development
+
+License
+MIT
