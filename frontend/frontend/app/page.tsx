@@ -1,3 +1,17 @@
+/**
+ * ai-firm frontend
+ *
+ * Purpose:
+ * - Main UI for The Way to Rust AI agents.
+ * - Optimized for low-spec targets (4GB Chromebook).
+ *
+ * Key responsibilities:
+ * - Render chat/workflow views that talk to the Rust backend.
+ * - Keep client bundle small and fast.
+ */
+
+
+
 import Image from "next/image";
 
 export default function Home() {
