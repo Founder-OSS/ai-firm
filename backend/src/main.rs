@@ -1,15 +1,37 @@
-//! ai-firm backend
-//!
-//! Purpose:
-//! - Provide a lightweight Rust HTTP API for The Way to Rust.
-//! - Run reliably on low-spec hardware (4GB Chromebook).
-//!
-//! Key responsibilities:
-//! - Expose endpoints the Next.js frontend can call.
-//! - Orchestrate AI agent logic and data access.
-//! - Keep memory and CPU usage minimal.
-
-
-fn main() {
-    println!("Hello, world!");
+use axum::{Router, routing::{get, post}, Json, http::{HeaderValue, Method}};
+use serde::{Deserialize, Serialize};
+use tower_http::cors::{CorsLayer, Any};
+#[derive(Serialize)]
+struct HealthResponse { status: &'static str }
+#[derive(Deserialize)]
+struct ChatRequest { message: String }
+#[derive(Serialize)]
+struct ChatResponse { reply: String }
+#[derive(Deserialize)]
+struct OllamaResponse { response: String }
+async fn health() -> Json<HealthResponse> { Json(HealthResponse { status: "online" }) }
+async fn chat(Json(payload): Json<ChatRequest>) -> Json<ChatResponse> {
+    let client = reqwest::Client::new();
+    let body = serde_json::json!({"model":"qwen3:8b","prompt":payload.message,"stream":false});
+    match client.post("http://localhost:11434/api/generate").json(&body).send().await {
+        Ok(res) => match res.json::<OllamaResponse>().await {
+            Ok(data) => Json(ChatResponse { reply: data.response }),
+            Err(_) => Json(ChatResponse { reply: "Failed to parse Ollama response.".into() }),
+        },
+        Err(_) => Json(ChatResponse { reply: "Could not reach Ollama. Is it running?".into() }),
+    }
+}
+#[tokio::main]
+async fn main() {
+    let cors = CorsLayer::new()
+        .allow_origin("http://localhost:3000".parse::<HeaderValue>().unwrap())
+        .allow_methods([Method::GET, Method::POST])
+        .allow_headers(Any);
+    let app = Router::new()
+        .route("/api/health", get(health))
+        .route("/api/agent/chat", post(chat))
+        .layer(cors);
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await.unwrap();
+    println!("ai-firm backend running on http://localhost:8080");
+    axum::serve(listener, app).await.unwrap();
 }
